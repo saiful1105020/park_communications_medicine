@@ -27,27 +27,29 @@ End-to-end repo for extracting features from **smile videos**, **finger-tapping 
 
 ```
 .
-├── code
-│   ├── analyses
-│   ├── feature_extraction_pipeline
-│   │   ├── facial_expression_smile
-│   │   ├── finger_tapping
-│   │   └── quick_brown_fox
-│   ├── fusion_model
-│   └── unimodal_models
-├── data
-│   ├── facial_expression_smile
-│   ├── finger_tapping
-│   └── quick_brown_fox
+├── code/
+│   ├── analyses/
+│   ├── feature_extraction_pipeline/
+│   │   ├── facial_expression_smile/
+│   │   ├── finger_tapping/
+│   │   └── quick_brown_fox/
+│   ├── fusion_model/
+│   └── unimodal_models/
+├── data/
+│   ├── facial_expression_smile/
+│   ├── finger_tapping/
+│   └── quick_brown_fox/
+|   └── validation_data/
+|   └── misc. files (.csv/.txt)
 ├── environment.yml 
-└── models
+└── models/
 ```
 Key highlights:
 - `code/feature_extraction_pipeline/*` — task‑specific feature extraction.
 - `code/unimodal_models/*` — per‑modality model training/inference.
 - `code/fusion_model/` — uncertainty‑aware fusion (all three tasks/modalities).
-- `code/analyses/` — metrics, stats, demographics, figures (paper‑ready).
-- `data/` — canonical CSVs for each modality + fusion splits.
+- `code/analyses/` — metrics, stats, demographics, figures (paper‑ready, with manual panel/legend edits).
+- `data/` — canonical CSVs for each modality + fusion splits; metadata used in analyses; user feedback surveys.
 - `models/` — saved scalers and model checkpoints per modality + fusion.
 
 ---
@@ -80,6 +82,8 @@ Canonical CSVs and metadata live in `data/`:
   - Smile: `data/facial_expression_smile/data_smile.csv`
   - Finger tapping: `data/finger_tapping/data_finger_tapping.csv`
   - Speech: `data/quick_brown_fox/data_speech.csv`
+- **User surveys**
+  - Survey responses evaluating usability, utility, risk, benefits, and preference: `data/validation_data/*.csv`
 
 Splits:
 - Dev/Test IDs: `dev_set_participants.txt`, `test_set_participants*.txt`  
@@ -118,6 +122,7 @@ python smile_feature_extraction.py --video_files_directory=raw_videos --openface
 - **Notes**: 
     - Produces a consolidated `features.csv` suitable for model training.
     - See [README](code/feature_extraction_pipeline/finger_tapping/README.md) in the same folder for task-specific usage details.
+    - Sample videos are recorded by the authors, and do not represent the patient videos used in our analyses.
 
 **Run:**
 ```bash
@@ -148,7 +153,7 @@ python  extract_wavlm_features.py
 
 ## Unimodal Models
 
-Each modality has a BAAL‑style unimodal trainer in `code/unimodal_models/`:
+Each modality has a <a href="https://github.com/baal-org/baal">BAAL</a>‑style unimodal trainer in `code/unimodal_models/`:
 
 - **Smile**: 
     - Code: `code/facial_expression_smile/unimodal_smile_baal.py`  
@@ -214,14 +219,11 @@ Located in `code/analyses/`:
   - **figure_1.ipynb** … **figure_4.ipynb**: Recreate all paper figures.   
   - **statistical_analysis.ipynb**: Run hypothesis tests, effect sizes, CIs, and produce result tables.  
   - *Exported plots live under* `code/analyses/plots/figure_{1..4}/`
-- **Metrics**: `calculate_performance_metrics.py` — compute AUROC/MAE/QWK/etc. from predictions. 
-- **Data from User Feedback Study**: CSVs under `code/analyses/validation_data/`.  
+- **Metrics**: `calculate_performance_metrics.py` — compute AUROC/MAE/QWK/etc. from predictions.  
 - **SHAP**  
   - Notebook: `code/fusion_model/shap_analysis.ipynb`  
   - Raw dump: `code/fusion_model/shap_raw.pkl` and `shap_outputs/shap_raw_test_trainbg.pkl`  
   - Panels: `shap_outputs/fig_shap_panels.{png,pdf}`
-
-
 ---
 
 ## Pretrained Models
