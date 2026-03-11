@@ -216,14 +216,14 @@ Located in `code/analyses/`:
 
 - **Notebooks**  
   - **demographic_table_generation.ipynb**: Build cohort demographics tables from metadata.  
-  - **figure_1.ipynb** … **figure_4.ipynb**: Recreate all paper figures.   
+  - **figure_x_*.ipynb**: Recreate all paper figures.   
   - **statistical_analysis.ipynb**: Run hypothesis tests, effect sizes, CIs, and produce result tables.  
-  - *Exported plots live under* `code/analyses/plots/figure_{1..4}/`
+  - *Exported plots live under* `code/analyses/plots/figure_{1..10}/`
 - **Metrics**: `calculate_performance_metrics.py` — compute AUROC/MAE/QWK/etc. from predictions.  
 - **SHAP**  
   - Notebook: `code/fusion_model/shap_analysis.ipynb`  
   - Raw dump: `code/fusion_model/shap_raw.pkl` and `shap_outputs/shap_raw_test_trainbg.pkl`  
-  - Panels: `shap_outputs/fig_shap_panels.{png,pdf}`
+  - Panels: `code/analyses/plots/figure_10/fig_shap_panels.{png,pdf}`
 ---
 
 ## Pretrained Models
